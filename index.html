@@ -1,0 +1,87 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="CSS/main.css">
+    <link rel="stylesheet" href="CSS/index.css">
+    <script src="https://cdn.jsdelivr.net/npm/axios@1.13.2/dist/axios.min.js"></script>
+    <title>Login | กินข้าวร้าน sp</title>
+    <script>
+        const isLoggedIn = localStorage.getItem("loggedInAs") && localStorage.getItem("tokenId") && localStorage.getItem("loggedInTimeStamp");
+        if (isLoggedIn) {
+            window.location.href = "home.html";
+        };
+    </script>
+</head>
+
+<body>
+    <main>
+        <h1>ลงชื่อเข้าใช้ผู้ดูแล</h1>
+        <div class="form">
+            <form>
+                <input placeholder="อีเมลล์" type="email" name="email" id="email">
+                <input placeholder="รหัสผ่าน" type="password" name="password" id="password">
+                <button type="button" onclick="login();" type="submit">ลงชื่อเข้าใช้</button>
+            </form>
+        </div>
+    </main>
+</body>
+
+<script>
+    const email = document.getElementById("email");
+    const password = document.getElementById("password");
+    const button = document.querySelector("button");
+    const WEB_APP_URL = "https://script.google.com/macros/s/AKfycbx5Qq-lKsmGnecshe7CpMD4henlvJGqlmIGqt1zRPqukcqPNaPemH31bNxIiLGt0s-NGQ/exec";
+    let isLoggingIn = false;
+
+    async function login() {
+        if (isLoggingIn) return;
+        isLoggingIn = true;
+
+        const defaultButtonText = button.textContent;
+
+        button.classList.add("busy");
+        button.textContent = "รอแป๊ป...";
+        button.disabled = true
+
+        try {
+            if (!email.value || !password.value) {
+                alert("กรุณากรอกข้อมูลให้ครบถ้วน");
+                throw new Error("Please fill out the form.");
+            }
+
+            const params = new URLSearchParams();
+            params.append('email', email.value);
+            params.append('password', password.value);
+            params.append('action', 'login');
+
+            const response = await axios.post(WEB_APP_URL, params, {
+                headers: {
+                    'Content-Type': 'application/x-www-form-urlencoded'
+                }
+            });
+
+            if (response.data.status === "success") {
+                localStorage.setItem("loggedInAs", email.value);
+                localStorage.setItem("tokenId", response.data.tokenId);
+                localStorage.setItem("loggedInTimeStamp", response.data.timestamp);
+                window.location.href = "home.html";
+                return;
+            } else {
+                alert(response.data.message);
+            }
+
+        } catch (error) {
+            console.error("Something went wrong!", error);
+        }
+
+        button.classList.remove("busy");
+        button.textContent = defaultButtonText;
+        button.disabled = false;
+        isLoggingIn = false;
+    }
+</script>
+
+</html>

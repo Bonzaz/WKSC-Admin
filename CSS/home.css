@@ -1,0 +1,53 @@
+header {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    margin-top: 2rem;
+}
+
+main {
+    width: 100%;
+    margin-top: 2rem;
+}
+
+main .buttons {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
+    gap: 1rem;
+    align-items: center;
+}
+
+a {
+    text-decoration: none;
+    color: black;
+    background-color: rgb(245, 245, 245);
+    padding: 25px;
+    border-radius: 10px;
+    cursor: pointer;
+    transition: 0.2s;
+    border: 3px solid rgba(0, 0, 0, 0);
+}
+
+a .container {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    gap: 0.5rem;
+    min-height: max-content;
+    height: 200px;
+}
+
+a .container i {
+    font-size: 2rem;
+}
+
+a:hover {
+    border-color: rgba(0, 0, 0, 0.51);
+    background-color: rgb(235, 235, 235);
+}
+
+a:active {
+    opacity: 0.5;
+}

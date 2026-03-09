@@ -1,0 +1,48 @@
+main {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    min-height: 100vh;
+}
+
+main form {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+
+main h1 {
+    margin-bottom: 1rem;
+}
+
+main form button {
+    margin-top: 1rem;
+}
+
+main form input {
+    margin: 5px 0;
+    padding: 5px 15px;
+    border-radius: 57px;
+    outline: none;
+    border: 1px solid black;
+    width: 100%;
+}
+
+main form button {
+    outline: none;
+    border: none;
+    padding: 7px 15px;
+    width: 100%;
+    border-radius: 10px;
+    cursor: pointer;
+    background-color: brown;
+    color: white;
+    box-shadow: 0 0 5px rgba(0, 0, 0, 0.122);
+}
+
+button.busy {
+    opacity: 0.5;
+    background-color: gray;
+    cursor: default;
+}

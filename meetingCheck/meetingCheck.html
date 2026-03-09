@@ -1,0 +1,113 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="../CSS/main.css">
+    <link rel="stylesheet" href="../CSS/meetingCheck/home.css">
+    <script src="https://cdn.jsdelivr.net/npm/axios@1.13.2/dist/axios.min.js"></script>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/7.0.1/css/all.min.css"
+        integrity="sha512-2SwdPD6INVrV/lHTZbO2nodKhrnDdJK9/kg2XD1r9uGqPo1cUbujc+IYdlYdEErWNu69gVcYgdxlmVmzTWnetw=="
+        crossorigin="anonymous" referrerpolicy="no-referrer" />
+    <title>Meeting Check | กินข้าวร้าน sp</title>
+    <script src="../JS/TokenCheck.js"></script>
+</head>
+
+<body>
+    <header>
+        <a class="backBtn" href="../home.html">&larr; กลับ</a>
+        <div>
+            <h1>ระบบเช็กชื่อการเข้าประชุม</h1>
+        </div>
+    </header>
+    <main>
+        <div class="container">
+            <div class="header">
+                <h2>วาระการประชุมทั้งหมด</h2>
+            </div>
+            <p id="loading" style="text-align: center; margin: auto; color: #3c4043;">กำลังโหลด...</p>
+            <div class="allMeetings">
+                <ol></ol>
+            </div>
+        </div>
+    </main>
+</body>
+
+<script>
+    const WEB_APP_URL = "https://script.google.com/macros/s/AKfycbx5Qq-lKsmGnecshe7CpMD4henlvJGqlmIGqt1zRPqukcqPNaPemH31bNxIiLGt0s-NGQ/exec";
+    const container = document.querySelector(".allMeetings ol")
+    const loading = document.getElementById("loading");
+
+    loading.style.display = "block";
+    container.style.display = "none";
+
+    async function getAllMeetings() {
+        try {
+            const response = await axios.get(WEB_APP_URL, {
+                params: {
+                    action: 'getAllMeetings',
+                    tokenId: localStorage.getItem("tokenId")
+                }
+            });
+
+            if (response.data.status === "success") {
+                response.data.meetings.forEach(meeting => {
+                    const options = {
+                        year: 'numeric',
+                        month: 'long',
+                        day: 'numeric'
+                    };
+
+                    meeting.StartTime = new Date(meeting.StartTime);
+                    const unix = meeting.StartTime.getTime();
+                    const formatter = new Intl.DateTimeFormat('th-TH', options);
+                    const fullThaiDate = formatter.format(meeting.StartTime);
+
+                    const li = document.createElement("li");
+                    li.classList.add("meeting");
+                    const data = `
+                        <a>
+                            <div class="left">
+                                <h2></h2>
+                            </div>
+                            <div class="right">
+                                <div>
+                                    <h4>กำหนดการ</h4>
+                                    <p>${fullThaiDate}</p>
+                                </div>
+                                <div>
+                                    <h4>สถานะ</h4>
+                                    <p class="${Date.now() > unix ? "green" : "yellow"}" >${Date.now() > unix ? "ผ่านมาแล้ว" : "กำลังจะถึง"}</p>
+                                </div>
+                            </div>
+                        </a>`;
+                    li.innerHTML = data;
+                    if (Date.now() < unix) {
+                        // li.classList.add("not-available");
+                    } else {
+                        
+                    }
+                    li.querySelector("a").href = `edit.html?id=${meeting.EventId}`;
+                    li.querySelector(".left h2").textContent = meeting.Title;
+                    container.appendChild(li);
+                });
+                loading.style.display = "none";
+                container.style.display = "block";
+            } else {
+                loading.textContent = "มีข้อผิดพลาดบางอย่าง " + response.data.message;
+                if (response.data.logout) {
+                    localStorage.clear();
+                    window.location.reload();
+                }
+            }
+
+        } catch (error) {
+            console.error("Something went wrong!", error);
+        }
+    }
+
+    getAllMeetings();
+</script>
+
+</html>

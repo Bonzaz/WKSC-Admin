@@ -1,0 +1,69 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="../CSS/main.css">
+    <link rel="stylesheet" href="../CSS/meetingCheck/edit.css">
+    <script src="https://cdn.jsdelivr.net/npm/axios@1.13.2/dist/axios.min.js"></script>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/7.0.1/css/all.min.css"
+        integrity="sha512-2SwdPD6INVrV/lHTZbO2nodKhrnDdJK9/kg2XD1r9uGqPo1cUbujc+IYdlYdEErWNu69gVcYgdxlmVmzTWnetw=="
+        crossorigin="anonymous" referrerpolicy="no-referrer" />
+    <title>Meeting Check | กินข้าวร้าน sp</title>
+    <script src="../JS/TokenCheck.js"></script>
+</head>
+
+<body>
+    <header>
+        <a class="backBtn" href="../meetingCheck/meetingCheck.html">&larr; กลับ</a>
+        <div>
+            <h1 id="h1-header">แก้ไข ""</h1>
+        <p>ไปที่<a id="goTo-Calendar" target="_blank">ปฏิทิน </a>หรือ<a id="goTo-Sheet" target="_blank">ชีต</a></p>
+        </div>
+    </header>
+    <main style="display: none;">
+        <div class="container">
+            <div class="header">
+                <h2>รายละเอียด</h2>
+                <div class="details">
+                    <div>
+                        <h3>เริ่มต้น</h3>
+                        <p id="eventStart-Time">14 กุมภาพันธ์ 2566 เวลา 10:00 น.</p>
+                    </div>
+                    <div>
+                        <h3>สิ้นสุด</h3>
+                        <p id="eventEnd-Time">14 กุมภาพันธ์ 2566 เวลา 11:00 น.</p>
+                    </div>
+                    </div>
+                </div>
+            </div>
+            <div class="search-box">
+                <div class="container">
+                    <i class="fa-solid fa-magnifying-glass"></i>
+                    <input type="text" placeholder="ค้นหารายชื่อหรืออีเมลล์..." id="searchInput">
+                    <button class="clear-btn" id="clearSearch">
+                        <i class="fa-solid fa-xmark"></i>
+                    </button>
+                </div>
+            </div>
+            <p id="loading-user" style="text-align: center; margin: auto; color: #3c4043;">กำลังโหลดรายชื่อ...</p>
+            <div class="checked">
+                <h2>เช็กแล้ว</h2>
+                <div class="checkedUsers"></div>
+            </div>
+            <div class="unchecked">
+                <h2>ยังไม่ได้เช็ก</h2>
+                <div class="uncheckedUsers"></div>
+            </div>
+        </div>
+        <div class="action-buttons" id="actionButtons">
+            <button class="btn-discard" id="discardBtn">ยกเลิก</button>
+            <button class="btn-save" id="saveBtn">บันทึกการเปลี่ยนแปลง</button>
+        </div>
+    </main>
+</body>
+
+<script src="../JS/meetingCheck/edit.js"></script>
+
+</html>
