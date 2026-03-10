@@ -264,6 +264,7 @@ main {
     justify-content: center;
     gap: 1rem;
     background: rgba(255, 255, 255, 0.3);
+    backdrop-filter: blur(2px);
     padding: 1rem 2rem;
     border-radius: 50px;
     box-shadow: 0 4px 20px rgba(0,0,0,0.15);
@@ -352,7 +353,6 @@ main {
         border-radius: 15px;
         gap: 7px;
         box-shadow: 0 4px 20px rgba(0,0,0,0.3);
-        background-color: #ffffff;
     }
 
     .action-buttons button {
