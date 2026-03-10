@@ -33,7 +33,7 @@
     const email = document.getElementById("email");
     const password = document.getElementById("password");
     const button = document.querySelector("button");
-    const WEB_APP_URL = "https://script.google.com/macros/s/AKfycbx5Qq-lKsmGnecshe7CpMD4henlvJGqlmIGqt1zRPqukcqPNaPemH31bNxIiLGt0s-NGQ/exec";
+    const WEB_APP_URL = "https://script.google.com/macros/s/AKfycbyYw95we2MSsR-s-lnWNGkjx70F4AKbNrNGOFZdvhZimTpQ9qbmm7CcVSnSQttyCfHe/exec";
     let isLoggingIn = false;
 
     async function login() {
@@ -82,6 +82,12 @@
         button.disabled = false;
         isLoggingIn = false;
     }
+
+    document.addEventListener("keypress", (e) => {
+        if (e.key === "Enter") {
+            login();
+        }
+    });
 </script>
 
 </html>

@@ -257,13 +257,13 @@ main {
 }
 
 .action-buttons {
-    position: fixed;
+    position: sticky;
     bottom: 2rem;
-    left: 50%;
-    transform: translateX(-50%);
     display: flex;
+    align-items: center;
+    justify-content: center;
     gap: 1rem;
-    background: white;
+    background: rgba(255, 255, 255, 0.3);
     padding: 1rem 2rem;
     border-radius: 50px;
     box-shadow: 0 4px 20px rgba(0,0,0,0.15);
@@ -271,6 +271,14 @@ main {
     transition: all 0.3s ease;
     opacity: 0;
     pointer-events: none;
+    max-width: 400px;
+    margin: 1rem auto;
+}
+
+.action-buttons:not(.visible) {
+    position: fixed;
+    left: 50%;
+    transform: translateX(-50%);
 }
 
 .action-buttons.visible {
@@ -344,6 +352,7 @@ main {
         border-radius: 15px;
         gap: 7px;
         box-shadow: 0 4px 20px rgba(0,0,0,0.3);
+        background-color: #ffffff;
     }
 
     .action-buttons button {

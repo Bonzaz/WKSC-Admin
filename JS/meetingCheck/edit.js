@@ -17,7 +17,7 @@ const actionButtons = document.getElementById("actionButtons");
 const saveBtn = document.getElementById("saveBtn");
 const discardBtn = document.getElementById("discardBtn");
 
-const WEB_APP_URL = "https://script.google.com/macros/s/AKfycbx5Qq-lKsmGnecshe7CpMD4henlvJGqlmIGqt1zRPqukcqPNaPemH31bNxIiLGt0s-NGQ/exec";
+const WEB_APP_URL = "https://script.google.com/macros/s/AKfycbyYw95we2MSsR-s-lnWNGkjx70F4AKbNrNGOFZdvhZimTpQ9qbmm7CcVSnSQttyCfHe/exec";
 
 title.textContent = "กำลังโหลด...";
 searchInput.disabled = true;
