@@ -58,6 +58,7 @@ function renderUsers() {
             const template = `<li class="user">
                         <div class="left">
                             <h3></h3>
+                            <h4></h4>
                             <p></p>
                         </div>
                         <div class="right">
@@ -65,13 +66,14 @@ function renderUsers() {
                         </div>
                     </li>`;
             ol.innerHTML = template;
-            ol.querySelector(".left h3").textContent = user[0];
+            ol.querySelector(".left h3").textContent = user[1];
+            ol.querySelector(".left h4").textContent = user[0];
             ol.querySelector(".left p").textContent = user[3] + "@wk.ac.th";
             ol.querySelector(".remove-btn").addEventListener("click", () => {
                 if (saving) return;
                 const movedUser = checkedUsers.splice(index, 1)[0];
                 uncheckedUsers.push(movedUser);
-                uncheckedUsers.sort((a, b) => a[0].localeCompare(b[0]));
+                uncheckedUsers.sort((a, b) => a[1].localeCompare(b[1], 'th'));
                 renderUsers();
                 checkChanges();
             });
@@ -90,6 +92,7 @@ function renderUsers() {
             const template = `<li class="user">
                         <div class="left">
                             <h3></h3>
+                            <h4></h4>
                             <p></p>
                         </div>
                         <div class="right">
@@ -97,13 +100,14 @@ function renderUsers() {
                         </div>
                     </li>`;
             ol.innerHTML = template;
-            ol.querySelector(".left h3").textContent = user[0];
+            ol.querySelector(".left h3").textContent = user[1];
+            ol.querySelector(".left h4").textContent = user[0];
             ol.querySelector(".left p").textContent = user[3] + "@wk.ac.th";
             ol.querySelector(".add-btn").addEventListener("click", () => {
                 if (saving) return;
                 const movedUser = uncheckedUsers.splice(index, 1)[0];
                 checkedUsers.push(movedUser);
-                checkedUsers.sort((a, b) => a[0].localeCompare(b[0]));
+                checkedUsers.sort((a, b) => a[1].localeCompare(b[1], 'th'));
                 renderUsers();
                 checkChanges();
             });
@@ -172,6 +176,7 @@ async function getUsers() {
 
         if (response.data.status === "success") {
             allUsers = response.data.members;
+            allUsers.sort((a, b) => a[1].localeCompare(b[1], 'th'));
             getCheckedUsers();
         } else {
             loadingUser.textContent = "เกิดข้อผิดพลาดบางอย่าง " + response.data.message;
@@ -206,7 +211,9 @@ async function getMeeting() {
             const options = {
                 year: 'numeric',
                 month: 'long',
-                day: 'numeric'
+                day: 'numeric',
+                hour: 'numeric',
+                minute: 'numeric'
             };
 
             meeting.StartTime = new Date(meeting.StartTime);
@@ -252,9 +259,10 @@ searchInput.addEventListener("input", function () {
 
     users.forEach(user => {
         const name = user.querySelector(".left h3").textContent.toLowerCase();
+        const fullName = user.querySelector(".left h4").textContent.toLowerCase();
         const email = user.querySelector(".left p").textContent.toLowerCase();
 
-        if (name.includes(filter) || email.includes(filter)) {
+        if (name.includes(filter) || email.includes(filter) || fullName.includes(filter)) {
             user.style.display = "flex";
         } else {
             user.style.display = "none";

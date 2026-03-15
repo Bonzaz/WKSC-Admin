@@ -206,14 +206,26 @@ main {
     min-height: 80px;
 }
 
+.user .left {
+    display: flex;
+    flex-direction: column;
+    gap: 3px;
+}
+
 .user .left h3 {
-    font-size: 1.1rem;
+    font-size: 1.2rem;
     color: #202124;
     font-weight: 600;
 }
 
-.user .left p {
+.user .left h4 {
     font-size: 0.9rem;
+    color: #202124;
+    font-weight: 500;
+}
+
+.user .left p {
+    font-size: 0.8rem;
     color: #5f6368;
     margin-top: 0.2rem;
 }
